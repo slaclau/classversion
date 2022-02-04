@@ -29,7 +29,7 @@ release information for
 
 %This preamble command signifies the beginning of a new release
 \ExplSyntaxOn
-\NewDocumentCommand{\NewRelease}{m O{\relax}}{
+\NewDocumentCommand{\NewRelease}{m m O{\relax}}{
     \gdef\classversion@currentRelease{#1} %This provides the current 
     %release version number
     
@@ -40,9 +40,13 @@ release information for
     \cs_new:cpx 
     {release\alphalph{\theclassversion@release}} {#1}
     
+    %And the release date
+    \cs_new:cpx 
+    {date\alphalph{\theclassversion@release}} {#2}
+    
     %And the change summary
     \cs_new:cpx 
-    {summary\alphalph{\theclassversion@release}} {#2}
+    {summary\alphalph{\theclassversion@release}} {#3}
     
     %We reset this counter to zero
     \setcounter{classversion@file}{0}
