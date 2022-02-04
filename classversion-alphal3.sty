@@ -36,15 +36,17 @@ release information for
     %We define a command to return the release version number given a 
     %lower case letter representing the release number
     \cs_new:cpx 
-    {cver_release\alphalph{\theclassversion@release}_tl} {#1}
+    {cver_release\alphalph{\int_show:c {l_cver_releasenumber_int}}_tl} 
+    {#1}
     
     %And the release date
     \cs_new:cpx 
-    {cver_date\alphalph{\theclassversion@release}_tl} {#2}
+    {cver_date\alphalph{\int_show:c {l_cver_releasenumber_int}}_tl} {#2}
     
     %And the change summary
     \cs_new:cpx 
-    {cver_summary\alphalph{\theclassversion@release}_tl} {#3}
+    {cver_summary\alphalph{\int_show:c {l_cver_releasenumber_int}}_tl} 
+    {#3}
     
     %We reset this counter to zero
     \int_zero:c l_cver_filenumber_int
@@ -52,9 +54,11 @@ release information for
     %We define a counter for this release to count its files and set it 
     %to zero
     \int_new:c 
-    {l_cver_filesinrelease\alphalph{\theclassversion@release}}
+    {l_cver_filesinrelease\alphalph{\int_show:c 
+    {l_cver_releasenumber_int}}}
     \int_zero:c 
-    {l_cver_filesinrelease\alphalph{\theclassversion@release}}
+    {l_cver_filesinrelease\alphalph{\int_show:c 
+    {l_cver_releasenumber_int}}}
 }
 
 %This converts a release number to a release version number
@@ -80,43 +84,53 @@ release information for
     \int_incr:c l_cver_filenumber_int
     
     \cs_new:cpx 
-    {cver_file\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+    {cver_file\AlphAlph{\int_show:c 
+    {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
     {#1}
     
     \cs_new:cpx 
-    {cver_eversion\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+    {cver_eversion\AlphAlph{\int_show:c 
+    {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
     {\ignorespaces#2\ignorespaces}
     
     \bool_new:c
-        {cver_exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_bool}
+        {cver_exists\AlphAlph{\int_show:c 
+        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_bool}
     
     \IfFileExists{#1}{
         \ReadFileInfos{#1}
     
         \cs_new:cpx 
-        {cver_version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {cver_version\AlphAlph{\int_show:c 
+        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
         {\ignorespaces\UseVersionOf{#1}\ignorespaces}
     
         \cs_new:cpx 
-        {cver_date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {cver_date\AlphAlph{\int_show:c 
+        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
         {\UseDateOf{#1}}
         
         \bool_set_true:c
-            {cver_exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_bool}
+            {cver_exists\AlphAlph{\int_show:c 
+            {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_bool}
     }{
         \cs_new:cpn 
-        {cver_version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {cver_version\AlphAlph{\int_show:c 
+        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
         {\textcolor{red}{version\space missing}}
         
         \cs_new:cpn 
-        {cver_date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {cver_date\AlphAlph{\int_show:c 
+        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
         {\textcolor{red}{date\space missing}}
         
         \bool_set_false:c
-        {cver_exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {cver_exists\AlphAlph{\int_show:c 
+        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
     }
       
-    \stepcounter{classversion@filesinrelease\alphalph{\theclassversion@release}}
+    \stepcounter{classversion@filesinrelease\alphalph{\int_show:c 
+    {l_cver_releasenumber_int}}}
 }
 
 %This prints a section to check the installation compared to the latest 
@@ -125,25 +139,31 @@ release information for
     \section*{#1}
     This installation of \textsf{\@classname} 
     consists of the following 
-    \classversion@filesinthisrelease{\theclassversion@release}\space 
+    \classversion@filesinthisrelease{\int_show:c 
+    {l_cver_releasenumber_int}}\space 
     files:
     \begingroup
     \int_zero:c l_cver_int
     \begin{enumerate}
         \int_do_while:nn 
-        {l_cver_int<\classversion@filesinthisrelease{\theclassversion@release}}
+        {l_cver_int<\classversion@filesinthisrelease{\int_show:c 
+        {l_cver_releasenumber_int}}}
         {   \item
             \int_incr:c l_cver_int
             \file{\csname 
-            cver_file\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}_tl\endcsname}~
+            cver_file\AlphAlph{\int_show:c 
+            {l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname}~
             \csname 
-            cver_version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}_tl\endcsname,
+            cver_version\AlphAlph{\int_show:c 
+            {l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname,
              dated 
             \csname 
-            cver_date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}_tl\endcsname
+            cver_date\AlphAlph{\int_show:c 
+            {l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname
             
             {\color{red}(expecting \csname 
-            cver_eversion\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}_tl\endcsname)}
+            cver_eversion\AlphAlph{\int_show:c 
+            {l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname)}
         }
     \end{enumerate}
     \endgroup
@@ -154,7 +174,8 @@ release information for
     \section*{#1}
     This release (\classversion@currentRelease) of \Lpack{\@classname} 
     consists of the following 
-    \classversion@filesinthisrelease{\theclassversion@release}\space 
+    \classversion@filesinthisrelease{\int_show:c 
+    {l_cver_releasenumber_int}}\space 
     files:
     \begingroup
     \setcounter{classversion@int}{0}
@@ -162,11 +183,14 @@ release information for
         \loop
             \item
             \stepcounter{classversion@int}
-            \file{\csname file\AlphAlph{\theclassversion@release}
+            \file{\csname file\AlphAlph{\int_show:c 
+            {l_cver_releasenumber_int}}
             \alphalph{\theclassversion@int}\endcsname}~
-            \csname eversion\AlphAlph{\theclassversion@release}
+            \csname eversion\AlphAlph{\int_show:c 
+            {l_cver_releasenumber_int}}
             \alphalph{\theclassversion@int}\endcsname
-        \ifnum\theclassversion@int<\classversion@filesinthisrelease{\theclassversion@release}
+        \ifnum\theclassversion@int<\classversion@filesinthisrelease{\int_show:c
+         {l_cver_releasenumber_int}}
          
         \repeat
     \end{enumerate}
@@ -204,7 +228,8 @@ release information for
 %recent
 \NewDocumentCommand{\releasehistory}{}{
     \begingroup
-    \setcounter{classversion@iint}{\theclassversion@release}
+    \setcounter{classversion@iint}{\int_show:c 
+    {l_cver_releasenumber_int}}
     \loop
         \thisrelease{\theclassversion@iint}
         \addtocounter{classversion@iint}{-1}
