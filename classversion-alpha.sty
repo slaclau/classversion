@@ -87,6 +87,9 @@ release information for
     {eversion\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
     {\ignorespaces#2\ignorespaces}
     
+    \bool_new:c
+        {exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
+    
     \IfFileExists{#1}{
         \ReadFileInfos{#1}
     
@@ -97,6 +100,9 @@ release information for
         \cs_new:cpx 
         {date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
         {\UseDateOf{#1}}
+        
+        \bool_set_true:c
+            {exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
     }{
         \cs_new:cpn 
         {version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
@@ -105,6 +111,9 @@ release information for
         \cs_new:cpn 
         {date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
         {\textcolor{red}{date\space missing}}
+        
+        \bool_set_true:c
+        {exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
     }
       
     \stepcounter{classversion@filesinrelease\alphalph{\theclassversion@release}}
