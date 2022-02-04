@@ -72,6 +72,8 @@ release information for
 %This returns the number of files in a release given the release number
 \NewDocumentCommand{\classversion@filesinthisrelease}{m}
     {\csname theclassversion@filesinrelease\alphalph{#1} \endcsname}
+\cs_new:cpn {cver_filesinthisrelease:n} #1
+    {\int_show:c {l_cver_filesinrelase\alphalph{#1}}
 
 %This preamble command follows \NewRelease and signifies a file that is 
 %part of that release
