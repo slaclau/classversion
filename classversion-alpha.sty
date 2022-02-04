@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{classversion-alpha}[2022/02/03 v0.2.0 Used for 
+\ProvidesPackage{classversion-alpha}[2022/02/03 v0.1.0 Used for 
 versioning classes]
 \RequirePackage{xparse}
 \RequirePackage{pgf}
@@ -17,108 +17,108 @@ release information for
 
 
 %Counts number of releases
-\ExplSyntaxOn
-\int_new:c l_cver_releasenumber_int
-\int_zero:cN l_cver_releasenumber_int
+\newcounter{classversion@release}
+\setcounter{classversion@release}{0}
 %Counts number of files - reset by new release
-\int_new:c l_cver_releasenumber_int
-\int_zero:cN l_cver_releasenumber_int
+\newcounter{classversion@file}
+\setcounter{classversion@file}{0}
+
 %Scratch counters
-\int_new:c l_cver_int
-\int_new:c l_cver_iint
+\newcounter{classversion@int}
+\newcounter{classversion@iint}
 
 %This preamble command signifies the beginning of a new release
+\ExplSyntaxOn
 \NewDocumentCommand{\NewRelease}{m m O{\relax}}{
     \gdef\classversion@currentRelease{#1} %This provides the current 
     %release version number
     
-    \int_incr:c l_cver_releasenumber_int 
+    \stepcounter{classversion@release}
     
     %We define a command to return the release version number given a 
     %lower case letter representing the release number
     \cs_new:cpx 
-    {cver_release\alphalph{\theclassversion@release}_tl} {#1}
+    {release\alphalph{\theclassversion@release}} {#1}
     
     %And the release date
     \cs_new:cpx 
-    {cver_date\alphalph{\theclassversion@release}_tl} {#2}
+    {date\alphalph{\theclassversion@release}} {#2}
     
     %And the change summary
     \cs_new:cpx 
-    {cver_summary\alphalph{\theclassversion@release}_tl} {#3}
+    {summary\alphalph{\theclassversion@release}} {#3}
     
     %We reset this counter to zero
-    \int_zero:c l_cver_filenumber_int
+    \setcounter{classversion@file}{0}
     
     %We define a counter for this release to count its files and set it 
     %to zero
-    \int_new:c 
-    {l_cver_filesinrelease\alphalph{\theclassversion@release}}
-    \int_zero:c 
-    {l_cver_filesinrelease\alphalph{\theclassversion@release}}
+    \newcounter{classversion@filesinrelease
+        \alphalph{\theclassversion@release}}
+    \setcounter{classversion@filesinrelease
+        \alphalph{\theclassversion@release}}{0}
 }
 
 %This converts a release number to a release version number
 \NewDocumentCommand{\classversion@thisreleasenumber}{m}
-    {\csname cver_release\alphalph{#1}_tl\endcsname}
+    {\csname release\alphalph{#1}\endcsname}
 %This converts a release number to a release date
 \NewDocumentCommand{\classversion@thisreleasedate}{m}
-    {\csname cver_date\alphalph{#1}_tl\endcsname}
+    {\csname date\alphalph{#1}\endcsname}
 %This converts a release number to a change summary
 \NewDocumentCommand{\classversion@thisreleasesummary}{m}
-    {\csname cver_summary\alphalph{#1}_tl\endcsname} 
+    {\csname summary\alphalph{#1}\endcsname} 
     
     
 %This returns the number of files in a release given the release number
-\NewDocumentCommand{\classversion@filesinthisrelease}{m}
-    {\csname theclassversion@filesinrelease\alphalph{#1} \endcsname}
-\cs_new:cpn {cver_filesinthisrelease:n} #1
-    {\int_show:c {l_cver_filesinrelase\alphalph{#1}}
+\NewDocumentCommand{\classversion@filesinthisrelease}{m}{
+    \csname theclassversion@filesinrelease\alphalph{#1} \endcsname}
 
 %This preamble command follows \NewRelease and signifies a file that is 
 %part of that release
 \NewDocumentCommand{\IncludeFileInRelease}{m m}{
-    \int_incr:c l_cver_filenumber_int
+    \stepcounter{classversion@file}
     
     \cs_new:cpx 
-    {cver_file\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+    {file\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
     {#1}
     
     \cs_new:cpx 
-    {cver_eversion\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+    {eversion\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
     {\ignorespaces#2\ignorespaces}
     
     \bool_new:c
-        {cver_exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_bool}
+        {exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
     
     \IfFileExists{#1}{
         \ReadFileInfos{#1}
     
         \cs_new:cpx 
-        {cver_version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
         {\ignorespaces\UseVersionOf{#1}\ignorespaces}
     
         \cs_new:cpx 
-        {cver_date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
         {\UseDateOf{#1}}
         
         \bool_set_true:c
-            {cver_exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_bool}
+            {exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
     }{
         \cs_new:cpn 
-        {cver_version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
         {\textcolor{red}{version\space missing}}
         
         \cs_new:cpn 
-        {cver_date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
         {\textcolor{red}{date\space missing}}
         
         \bool_set_false:c
-        {cver_exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}_tl}
+        {exists\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
     }
       
     \stepcounter{classversion@filesinrelease\alphalph{\theclassversion@release}}
 }
+\ExplSyntaxOff
 
 %This prints a section to check the installation compared to the latest 
 %release
@@ -129,27 +129,27 @@ release information for
     \classversion@filesinthisrelease{\theclassversion@release}\space 
     files:
     \begingroup
-    \int_zero:c l_cver_int
+    \setcounter{classversion@int}{0}
     \begin{enumerate}
-        \int_do_while:nn 
-        {l_cver_int<\classversion@filesinthisrelease{\theclassversion@release}}
-        {   \item
-            \int_incr:c l_cver_int
+        \loop
+            \item
+            \stepcounter{classversion@int}
             \file{\csname 
-            cver_file\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}_tl\endcsname}~
+            file\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}\endcsname}~
             \csname 
-            cver_version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}_tl\endcsname,
+            version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}\endcsname,
              dated 
             \csname 
-            cver_date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}_tl\endcsname
+            date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}\endcsname
             
             {\color{red}(expecting \csname 
-            cver_eversion\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}_tl\endcsname)}
-        }
+            eversion\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@int}\endcsname)}
+    \ifnum\theclassversion@int<\classversion@filesinthisrelease{\theclassversion@release}
+        
+    \repeat
     \end{enumerate}
     \endgroup
 }
-\ExplSyntaxOff
 %This prints a section to show latest release
 \NewDocumentCommand{\latestrelease}{O{Release manifest}}{
     \section*{#1}
@@ -213,6 +213,3 @@ release information for
     \repeat
     \endgroup
 }
-
-% \changes{v0.1.0}{2022/02/03}{Initial version}
-% \changes{v0.2.0}{2022/02/04}{Refactored to expl}
