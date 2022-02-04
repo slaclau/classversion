@@ -62,6 +62,9 @@ release information for
 %This converts a release number to a release version number
 \NewDocumentCommand{\classversion@thisreleasenumber}{m}
     {\csname release\alphalph{#1}\endcsname}
+%This converts a release number to a release date
+\NewDocumentCommand{\classversion@thisreleasedate}{m}
+    {\csname date\alphalph{#1}\endcsname}
 %This converts a release number to a change summary
 \NewDocumentCommand{\classversion@thisreleasesummary}{m}
     {\csname summary\alphalph{#1}\endcsname} 
@@ -156,7 +159,8 @@ release information for
 
 %This prints a section to show a specific release
 \NewDocumentCommand{\thisrelease}{O{Release 
-\classversion@thisreleasenumber{#2}} m}{
+\classversion@thisreleasenumber{#2}, dated 
+\classversion@thisreleasedate{#2}} m}{
     \section*{#1}
     \paragraph{Change summary}
     \classversion@thisreleasesummary{#2}
