@@ -70,112 +70,120 @@ release information for
 }
 
 %This converts a release number to a release version number
-\NewDocumentCommand{\classversion@thisreleasenumber}{m}
-    {\csname cver_release\alphalph{#1}_tl\endcsname}
-%This converts a release number to a release date
-\NewDocumentCommand{\classversion@thisreleasedate}{m}
-    {\csname cver_date\alphalph{#1}_tl\endcsname}
-%This converts a release number to a change summary
-\NewDocumentCommand{\classversion@thisreleasesummary}{m}
-    {\csname cver_summary\alphalph{#1}_tl\endcsname} 
-    
-    
-%This returns the number of files in a release given the release number
-\NewDocumentCommand{\classversion@filesinthisrelease}{m}
-    {\csname theclassversion@filesinrelease\alphalph{#1} \endcsname}
-\cs_new:cpn {cver_filesinthisrelease:n} #1
-    {\int_show:c {l_cver_filesinrelase\alphalph{#1}}}
-
-%This preamble command follows \NewRelease and signifies a file that is 
-%part of that release
-\NewDocumentCommand{\IncludeFileInRelease}{m m}{
-    \int_incr:c l_cver_filenumber_int
-    
-    \cs_new:cpx 
-    {cver_file\AlphAlph{\int_show:c 
-    {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
-    {#1}
-    
-    \cs_new:cpx 
-    {cver_eversion\AlphAlph{\int_show:c 
-    {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
-    {\ignorespaces#2\ignorespaces}
-    
-    \bool_new:c
-        {cver_exists\AlphAlph{\int_show:c 
-        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_bool}
-    
-    \IfFileExists{#1}{
-        \ReadFileInfos{#1}
-    
-        \cs_new:cpx 
-        {cver_version\AlphAlph{\int_show:c 
-        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
-        {\ignorespaces\UseVersionOf{#1}\ignorespaces}
-    
-        \cs_new:cpx 
-        {cver_date\AlphAlph{\int_show:c 
-        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
-        {\UseDateOf{#1}}
-        
-        \bool_set_true:c
-            {cver_exists\AlphAlph{\int_show:c 
-            {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_bool}
-    }{
-        \cs_new:cpn 
-        {cver_version\AlphAlph{\int_show:c 
-        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
-        {\textcolor{red}{version\space missing}}
-        
-        \cs_new:cpn 
-        {cver_date\AlphAlph{\int_show:c 
-        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
-        {\textcolor{red}{date\space missing}}
-        
-        \bool_set_false:c
-        {cver_exists\AlphAlph{\int_show:c 
-        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
-    }
-      
-    \stepcounter{classversion@filesinrelease\alphalph{\int_show:c 
-    {l_cver_releasenumber_int}}}
-}
-
-%This prints a section to check the installation compared to the latest 
-%release
-\NewDocumentCommand{\installation}{O{Installation check}}{
-    \section*{#1}
-    This installation of \textsf{\@classname} 
-    consists of the following 
-    \classversion@filesinthisrelease{\int_show:c 
-    {l_cver_releasenumber_int}}\space 
-    files:
-    \begingroup
-    \int_zero:c l_cver_int
-    \begin{enumerate}
-        \int_do_while:nn 
-        {l_cver_int<\classversion@filesinthisrelease{\int_show:c 
-        {l_cver_releasenumber_int}}}
-        {   \item
-            \int_incr:c l_cver_int
-            \file{\csname 
-            cver_file\AlphAlph{\int_show:c 
-            {l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname}~
-            \csname 
-            cver_version\AlphAlph{\int_show:c 
-            {l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname,
-             dated 
-            \csname 
-            cver_date\AlphAlph{\int_show:c 
-            {l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname
-            
-            {\color{red}(expecting \csname 
-            cver_eversion\AlphAlph{\int_show:c 
-            {l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname)}
-        }
-    \end{enumerate}
-    \endgroup
-}
+%\NewDocumentCommand{\classversion@thisreleasenumber}{m}
+%    {\csname cver_release\alphalph{#1}_tl\endcsname}
+%%This converts a release number to a release date
+%\NewDocumentCommand{\classversion@thisreleasedate}{m}
+%    {\csname cver_date\alphalph{#1}_tl\endcsname}
+%%This converts a release number to a change summary
+%\NewDocumentCommand{\classversion@thisreleasesummary}{m}
+%    {\csname cver_summary\alphalph{#1}_tl\endcsname} 
+%    
+%    
+%%This returns the number of files in a release given the release number
+%\NewDocumentCommand{\classversion@filesinthisrelease}{m}
+%    {\csname theclassversion@filesinrelease\alphalph{#1} \endcsname}
+%\cs_new:cpn {cver_filesinthisrelease:n} #1
+%    {\int_show:c {l_cver_filesinrelase\alphalph{#1}}}
+%
+%%This preamble command follows \NewRelease and signifies a file that 
+%%is 
+%%part of that release
+%\NewDocumentCommand{\IncludeFileInRelease}{m m}{
+%    \int_incr:c l_cver_filenumber_int
+%    
+%    \cs_new:cpx 
+%    {cver_file\AlphAlph{\int_show:c 
+%    {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
+%    {#1}
+%    
+%    \cs_new:cpx 
+%    {cver_eversion\AlphAlph{\int_show:c 
+%    {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
+%    {\ignorespaces#2\ignorespaces}
+%    
+%    \bool_new:c
+%        {cver_exists\AlphAlph{\int_show:c 
+%        
+%{l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_bool}
+%    
+%    \IfFileExists{#1}{
+%        \ReadFileInfos{#1}
+%    
+%        \cs_new:cpx 
+%        {cver_version\AlphAlph{\int_show:c 
+%        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
+%        {\ignorespaces\UseVersionOf{#1}\ignorespaces}
+%    
+%        \cs_new:cpx 
+%        {cver_date\AlphAlph{\int_show:c 
+%        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
+%        {\UseDateOf{#1}}
+%        
+%        \bool_set_true:c
+%            {cver_exists\AlphAlph{\int_show:c 
+%            
+%{l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_bool}
+%    }{
+%        \cs_new:cpn 
+%        {cver_version\AlphAlph{\int_show:c 
+%        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
+%        {\textcolor{red}{version\space missing}}
+%        
+%        \cs_new:cpn 
+%        {cver_date\AlphAlph{\int_show:c 
+%        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
+%        {\textcolor{red}{date\space missing}}
+%        
+%        \bool_set_false:c
+%        {cver_exists\AlphAlph{\int_show:c 
+%        {l_cver_releasenumber_int}}\alphalph{\theclassversion@file}_tl}
+%    }
+%      
+%    \stepcounter{classversion@filesinrelease\alphalph{\int_show:c 
+%    {l_cver_releasenumber_int}}}
+%}
+%
+%%This prints a section to check the installation compared to the 
+%%latest 
+%%release
+%\NewDocumentCommand{\installation}{O{Installation check}}{
+%    \section*{#1}
+%    This installation of \textsf{\@classname} 
+%    consists of the following 
+%    \classversion@filesinthisrelease{\int_show:c 
+%    {l_cver_releasenumber_int}}\space 
+%    files:
+%    \begingroup
+%    \int_zero:c l_cver_int
+%    \begin{enumerate}
+%        \int_do_while:nn 
+%        {l_cver_int<\classversion@filesinthisrelease{\int_show:c 
+%        {l_cver_releasenumber_int}}}
+%        {   \item
+%            \int_incr:c l_cver_int
+%            \file{\csname 
+%            cver_file\AlphAlph{\int_show:c 
+%            
+%{l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname}~
+%            \csname 
+%            cver_version\AlphAlph{\int_show:c 
+%            
+%{l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname,
+%             dated 
+%            \csname 
+%            cver_date\AlphAlph{\int_show:c 
+%            
+%{l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname
+%            
+%            {\color{red}(expecting \csname 
+%            cver_eversion\AlphAlph{\int_show:c 
+%            
+%{l_cver_releasenumber_int}}\alphalph{\theclassversion@int}_tl\endcsname)}
+%        }
+%    \end{enumerate}
+%    \endgroup
+%}
 \ExplSyntaxOff
 %This prints a section to show latest release
 %\NewDocumentCommand{\latestrelease}{O{Release manifest}}{
