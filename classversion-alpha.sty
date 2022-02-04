@@ -98,15 +98,13 @@ release information for
         {date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
         {\UseDateOf{#1}}
     }{
-%        \cs_new:cpx 
-%        
-%{version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
-%        {{\color{red} version missing}}
-%        
-%        \cs_new:cpx 
-%        
-%{date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
-%        {{\color{red} date missing}}
+        \cs_new:cpx 
+        {version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
+        {{version missing}}
+        
+        \cs_new:cpx 
+        {date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
+        {{date missing}}
     }
       
     \stepcounter{classversion@filesinrelease\alphalph{\theclassversion@release}}
