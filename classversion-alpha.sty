@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesExplPackage{classversion-alpha}[2022/02/03 v0.1.0 Used for 
+\ProvidesPackage{classversion-alpha}[2022/02/03 v0.1.0 Used for 
 versioning classes]
 \RequirePackage{xparse}
 \RequirePackage{pgf}
@@ -28,6 +28,7 @@ release information for
 \newcounter{classversion@iint}
 
 %This preamble command signifies the beginning of a new release
+\ExplSyntaxOn
 \NewDocumentCommand{\NewRelease}{m m O{\relax}}{
     \gdef\classversion@currentRelease{#1} %This provides the current 
     %release version number
@@ -117,6 +118,7 @@ release information for
       
     \stepcounter{classversion@filesinrelease\alphalph{\theclassversion@release}}
 }
+\ExplSyntaxOff
 
 %This prints a section to check the installation compared to the latest 
 %release
