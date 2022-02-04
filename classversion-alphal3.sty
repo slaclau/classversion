@@ -17,21 +17,21 @@ release information for
 
 %Counts number of releases
 \ExplSyntaxOn
-\int_new:c l_cver_releasenumber_int
-\int_zero:cN l_cver_releasenumber_int
+\int_new:c {l_cver_releasenumber_int}
+\int_zero:cN {l_cver_releasenumber_int}
 %Counts number of files - reset by new release
-\int_new:c l_cver_releasenumber_int
-\int_zero:cN l_cver_releasenumber_int
+\int_new:c {l_cver_releasenumber_int}
+\int_zero:cN {l_cver_releasenumber_int}
 %Scratch counters
-\int_new:c l_cver_int
-\int_new:c l_cver_iint
+\int_new:c {l_cver_int}
+\int_new:c {l_cver_iint}
 
 %This preamble command signifies the beginning of a new release
 \NewDocumentCommand{\NewRelease}{m m O{\relax}}{
     \gdef\classversion@currentRelease{#1} %This provides the current 
     %release version number
     
-    \int_incr:c l_cver_releasenumber_int 
+    \int_incr:c {l_cver_releasenumber_int}
     
     %We define a command to return the release version number given a 
     %lower case letter representing the release number
