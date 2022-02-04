@@ -26,7 +26,7 @@ release information for
 \int_new:c {l_cver_int}
 \int_new:c {l_cver_iint}
 
-\cs_new:cpn {cver_alphacode:nn} {#1#2} {\AlphAlph{#1}\alphalph{#2}}
+\cs_new:cpn {cver_alphacode:nn} #1#2 {\AlphAlph{#1}\alphalph{#2}}
 \newcommand{\test}{\cver_alphacode:nn {1}{1}}
 
 %This preamble command signifies the beginning of a new release
