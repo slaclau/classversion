@@ -97,7 +97,15 @@ release information for
         \cs_new:cpx 
         {date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
         {\UseDateOf{#1}}
-    }{}
+    }{
+        \cs_new:cpx 
+        {version\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
+        {\red version missing}
+        
+        \cs_new:cpx 
+        {date\AlphAlph{\theclassversion@release}\alphalph{\theclassversion@file}}
+        {\red date missing}
+    }
       
     \stepcounter{classversion@filesinrelease\alphalph{\theclassversion@release}}
 }
