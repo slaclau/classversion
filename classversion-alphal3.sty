@@ -170,73 +170,75 @@ release information for
 }
 \ExplSyntaxOff
 %This prints a section to show latest release
-\NewDocumentCommand{\latestrelease}{O{Release manifest}}{
-    \section*{#1}
-    This release (\classversion@currentRelease) of \Lpack{\@classname} 
-    consists of the following 
-    \classversion@filesinthisrelease{\int_show:c 
-    {l_cver_releasenumber_int}}\space 
-    files:
-    \begingroup
-    \setcounter{classversion@int}{0}
-    \begin{enumerate}
-        \loop
-            \item
-            \stepcounter{classversion@int}
-            \file{\csname file\AlphAlph{\int_show:c 
-            {l_cver_releasenumber_int}}
-            \alphalph{\theclassversion@int}\endcsname}~
-            \csname eversion\AlphAlph{\int_show:c 
-            {l_cver_releasenumber_int}}
-            \alphalph{\theclassversion@int}\endcsname
-        \ifnum\theclassversion@int<\classversion@filesinthisrelease{\int_show:c
-         {l_cver_releasenumber_int}}
-         
-        \repeat
-    \end{enumerate}
-    \endgroup
-}
+%\NewDocumentCommand{\latestrelease}{O{Release manifest}}{
+%    \section*{#1}
+%    This release (\classversion@currentRelease) of \Lpack{\@classname} 
+%    consists of the following 
+%    \classversion@filesinthisrelease{\int_show:c 
+%    {l_cver_releasenumber_int}}\space 
+%    files:
+%    \begingroup
+%    \setcounter{classversion@int}{0}
+%    \begin{enumerate}
+%        \loop
+%            \item
+%            \stepcounter{classversion@int}
+%            \file{\csname file\AlphAlph{\int_show:c 
+%            {l_cver_releasenumber_int}}
+%            \alphalph{\theclassversion@int}\endcsname}~
+%            \csname eversion\AlphAlph{\int_show:c 
+%            {l_cver_releasenumber_int}}
+%            \alphalph{\theclassversion@int}\endcsname
+%        
+%\ifnum\theclassversion@int<\classversion@filesinthisrelease{\int_show:c
+%         {l_cver_releasenumber_int}}
+%         
+%        \repeat
+%    \end{enumerate}
+%    \endgroup
+%}
 
 %This prints a section to show a specific release
-\NewDocumentCommand{\thisrelease}{O{Release 
-\classversion@thisreleasenumber{#2}, dated 
-\classversion@thisreleasedate{#2}} m}{
-    \section*{#1}
-    \paragraph{Change summary}
-    \classversion@thisreleasesummary{#2}
-    \paragraph*{Manifest}
-    This release consists of the following 
-    \ifnum\classversion@filesinthisrelease{#2}>1 
-    \classversion@filesinthisrelease{#2}\space files\else file\fi:
-    \begingroup
-    \setcounter{classversion@int}{0}
-    \begin{enumerate}
-        \loop
-        \item
-        \stepcounter{classversion@int}
-        \file{\csname         
-        file\AlphAlph{#2}\alphalph{\theclassversion@int}\endcsname}~\csname
-         eversion\AlphAlph{#2}\alphalph{\theclassversion@int}\endcsname
-        \ifnum\theclassversion@int<
-            \classversion@filesinthisrelease{#2}
-        \repeat
-    \end{enumerate}
-    \endgroup
-}
+%\NewDocumentCommand{\thisrelease}{O{Release 
+%\classversion@thisreleasenumber{#2}, dated 
+%\classversion@thisreleasedate{#2}} m}{
+%    \section*{#1}
+%    \paragraph{Change summary}
+%    \classversion@thisreleasesummary{#2}
+%    \paragraph*{Manifest}
+%    This release consists of the following 
+%    \ifnum\classversion@filesinthisrelease{#2}>1 
+%    \classversion@filesinthisrelease{#2}\space files\else file\fi:
+%    \begingroup
+%    \setcounter{classversion@int}{0}
+%    \begin{enumerate}
+%        \loop
+%        \item
+%        \stepcounter{classversion@int}
+%        \file{\csname         
+%        
+%file\AlphAlph{#2}\alphalph{\theclassversion@int}\endcsname}~\csname
+%         eversion\AlphAlph{#2}\alphalph{\theclassversion@int}\endcsname
+%        \ifnum\theclassversion@int<
+%            \classversion@filesinthisrelease{#2}
+%        \repeat
+%    \end{enumerate}
+%    \endgroup
+%}
 
 %This prints a section to show each release, starting with the most 
 %recent
-\NewDocumentCommand{\releasehistory}{}{
-    \begingroup
-    \setcounter{classversion@iint}{\int_show:c 
-    {l_cver_releasenumber_int}}
-    \loop
-        \thisrelease{\theclassversion@iint}
-        \addtocounter{classversion@iint}{-1}
-    \ifnum\theclassversion@iint>0
-    \repeat
-    \endgroup
-}
+%\NewDocumentCommand{\releasehistory}{}{
+%    \begingroup
+%    \setcounter{classversion@iint}{\int_show:c 
+%    {l_cver_releasenumber_int}}
+%    \loop
+%        \thisrelease{\theclassversion@iint}
+%        \addtocounter{classversion@iint}{-1}
+%    \ifnum\theclassversion@iint>0
+%    \repeat
+%    \endgroup
+%}
 
 % \changes{v0.1.0}{2022/02/03}{Initial version}
 % \changes{v0.2.0}{2022/02/04}{Refactored to expl}
