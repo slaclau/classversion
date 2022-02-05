@@ -30,11 +30,16 @@ release information for
   \prop_put:cnn {@@_releasesummary} {#1} {#3}
   \prop_new:c
     {@@_releasefileversions_\alphalph{\int_use:c 
-    {l_@@_releasenumber_int}}}
+      {l_@@_releasenumber_int}}}
 }
 
-%\Def
-
+%Define \IncludeFileInRelease
+\NewDocumentCommand{\IncludeFileInRelease}{m m}{
+    \prop_put:cnn
+      {@@_releasefileversions_\alphalph{\int_use:c 
+        {l_@@_releasenumber_int}}}
+      {#1} {#2}
+}
 
 
 
