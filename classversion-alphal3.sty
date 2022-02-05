@@ -29,8 +29,10 @@ release information for
   \prop_put:cnn {@@_releasedate} {#1} {#2}
   \prop_put:cnn {@@_releasesummary} {#1} {#3}
   \prop_new:c
-    {@@_releasefileversions_\alphalph{\int_show{@@_releasenumber}}}
+    {@@_releasefileversions_\alphalph{\int_show:c {@@_releasenumber}}}
 }
+
+%\Def
 
 
 
