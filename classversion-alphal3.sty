@@ -45,11 +45,13 @@ release information for
 }
 
 %Define \thisrelease
-\NewDocumentCommand{\thisreleaseversion}{O{This~release} m}{
-  \section*{#1}
-  \paragraph*{Change~summary}
-  \prop_item:cn {l_@@_releasesummary_prop} {#2}
-}
+\NewDocumentCommand{\thisreleaseversion}
+  {O {Release~#2,~dated~\prop_item:cn {l_@@_releasedate_prop} {#2}} m}
+  {
+    \section*{#1}
+    \paragraph*{Change~summary}
+    \prop_item:cn {l_@@_releasesummary_prop} {#2}
+  }
 
 
 % \changes{v0.1.0}{2022/02/03}{Initial version}
