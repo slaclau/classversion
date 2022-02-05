@@ -25,6 +25,9 @@ release information for
   \prop_put:cnn {@@_releasesummary} {#1} {#3}
 }
 
+\NewDocumentCommand{\test}{m}{
+  \prop_item:cn {@@_releasedate} {#1}
+}
 
 
 % \changes{v0.1.0}{2022/02/03}{Initial version}
