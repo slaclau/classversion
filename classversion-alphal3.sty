@@ -24,7 +24,7 @@ release information for
 \NewDocumentCommand{\NewRelease}{m m O{\relax}}{
   \prop_put:cnn {@@_releasedate} {#1} {#2}
   \prop_put:cnn {@@_releasesummary} {#1} {#3}
-  \prop_new:c {@@_releasefiles_aux}
+  \seq_new:c {@@_releasefiles_aux}
   \prop_put:cnn {@@_releasefiles} {#1} {\@@_release_files_aux}
 }
 
