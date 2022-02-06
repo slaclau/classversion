@@ -10,9 +10,8 @@ versioning classes}
 \providecommand*{\file}[1]{\texttt {#1}}
 \providecommand*{\Lpack}[1]{\textsf {#1}}
 
-\def\classname#1{\gdef\@classname{#1} \title{Installation check and 
-release information for 
-\Lpack{\@classname} up to release }}
+\def\classname#1{\gdef\@classname{#1} 
+\title{Installation~check~and~release~information~for~\Lpack{\@classname}~up~to~release}}
 %\classversion@currentRelease}}
 
 %Initialize property lists to store the release version, date, and 
@@ -32,6 +31,7 @@ release information for
     {l_@@_releaseversion_prop} {\l_@@_releasenumber_int} {#1}
   \prop_put:cnn {l_@@_releasedate_prop} {#1} {#2}
   \prop_put:cnn {l_@@_releasesummary_prop} {#1} {#3}
+  \prop_put:
   \prop_new:c
     {l_@@_releasefileversions_\alphalph{\int_use:c 
       {l_@@_releasenumber_int}}_prop}
@@ -50,8 +50,13 @@ release information for
   {O {Release~#2,~dated~\prop_item:cn {l_@@_releasedate_prop} {#2}} m}
   {
     \section*{#1}
-    \paragraph*{Change~summary}
-    \prop_item:cn {l_@@_releasesummary_prop} {#2}
+      \paragraph*{Change~summary}
+        \prop_item:cn {l_@@_releasesummary_prop} {#2}
+      \paragraph*{Manifest}
+        This~release~consists~of~the~following
+        \begin{enumerate}
+           
+        \end{enumerate}
   }
 
 
