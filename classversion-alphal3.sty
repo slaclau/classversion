@@ -25,16 +25,13 @@ versioning classes}
 
 
 %Define \NewRelease
-\NewDocumentCommand{\NewRelease}{m m O{\relax}}{
+\NewDocumentCommand{\NewRelease}{m m O{\relax} O{\relax}}{
   \int_incr:c {l_@@_releasenumber_int}
   \prop_put:cVn 
     {l_@@_releaseversion_prop} {\l_@@_releasenumber_int} {#1}
   \prop_put:cnn {l_@@_releasedate_prop} {#1} {#2}
   \prop_put:cnn {l_@@_releasesummary_prop} {#1} {#3}
-  \prop_put:
-  \prop_new:c
-    {l_@@_releasefileversions_\alphalph{\int_use:c 
-      {l_@@_releasenumber_int}}_prop}
+  \prop_put_from_keyval:cn {l_tmpa_prop} {#4}
 }
 
 %Define \IncludeFileInRelease
