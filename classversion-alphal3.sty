@@ -43,10 +43,10 @@ versioning classes}
 \NewDocumentCommand{\thisreleaseversion}
   {O {Release~#2,~dated~\prop_item:cn {l_@@_releasedate_prop} {#2}} m}
   {
-    \prop_set_eq:cN {l_tmpa_prop} \prop_item:cn 
-    {l_@@_releasefiles_prop} {#2}
+    \prop_set_eq:cN {l_tmpa_prop} {\prop_item:cn 
+    {l_@@_releasefiles_prop} {#2}}
     \seq_clear:c {l_tmpa_seq}
-    \prop_item:cn {l_tmpa_prop}{examx.cls}
+    \prop_item:cn {l_tmpa_prop} {examx.cls}
     
     \section*{#1}
       \paragraph*{Change~summary}
