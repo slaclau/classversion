@@ -46,7 +46,8 @@ versioning classes}
     \prop_set_eq:cN {l_tmpa_prop} \prop_item:cn 
     {l_@@_releasefiles_prop} {#2}
     \seq_clear:c {l_tmpa_seq}
-%    \prop_map_inline:cn {}  
+    \prop_map_inline:cn {l_tmpa_prop} {\seq_put_right:cn {l_tmpa_seq} 
+    {#1}}  
     
     \section*{#1}
       \paragraph*{Change~summary}
